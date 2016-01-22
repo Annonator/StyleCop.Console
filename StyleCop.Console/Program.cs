@@ -17,7 +17,7 @@ namespace StyleCop.Console
                 if (arguments.Help)
                 {
                     ShowHelp();
-                    return (int) ExitCode.Failed;
+                    return (int)ExitCode.Failed;
                 }
 
                 if (string.IsNullOrWhiteSpace(arguments.ProjectPath) || !Directory.Exists(arguments.ProjectPath))
@@ -25,23 +25,21 @@ namespace StyleCop.Console
                     ShowHelp();
                     System.Console.WriteLine("");
                     System.Console.WriteLine("ERROR: Invalid or no path specified \"{0}\"!", arguments.ProjectPath);
-                    return (int) ExitCode.Failed;
+                    return (int)ExitCode.Failed;
                 }
 
-                var settings = !string.IsNullOrWhiteSpace(arguments.SettingsLocation)
-                    ? arguments.SettingsLocation
-                    : Path.Combine(Assembly.GetExecutingAssembly().Location, "Settings.StyleCop");
+                string settings = !string.IsNullOrWhiteSpace(arguments.SettingsLocation) ? arguments.SettingsLocation : Path.Combine(Assembly.GetExecutingAssembly().Location, "Settings.StyleCop");
 
-                var searchOption = arguments.NotRecursive ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories;
+                SearchOption searchOption = arguments.NotRecursive ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories;
 
-                var projectPath = arguments.ProjectPath;
+                string projectPath = arguments.ProjectPath;
 
                 return ProcessFolder(settings, projectPath, searchOption);
             }
             catch (Exception ex)
             {
                 System.Console.WriteLine("An unhandled exception occured: {0}", ex);
-                return (int) ExitCode.Failed;
+                return (int)ExitCode.Failed;
             }
         }
 
@@ -50,7 +48,7 @@ namespace StyleCop.Console
             var console = new StyleCopConsole(settings, false, null, null, true);
             var project = new CodeProject(0, projectPath, new Configuration(null));
 
-            foreach (var file in Directory.EnumerateFiles(projectPath, "*.cs", searchOption))
+            foreach (string file in Directory.EnumerateFiles(projectPath, "*.cs", searchOption))
             {
                 //TODO: This is pretty hacky. Have to figure out a better way to exclude packages and/or make this configurable.
                 if (file.Contains("\\packages\\"))
@@ -63,11 +61,14 @@ namespace StyleCop.Console
 
             console.OutputGenerated += OnOutputGenerated;
             console.ViolationEncountered += OnViolationEncountered;
-            console.Start(new[] {project}, true);
+            console.Start(new[]
+                              {
+                                  project
+                              }, true);
             console.OutputGenerated -= OnOutputGenerated;
             console.ViolationEncountered -= OnViolationEncountered;
 
-            return _encounteredViolations > 0 ? (int) ExitCode.Failed : (int) ExitCode.Passed;
+            return _encounteredViolations > 0 ? (int)ExitCode.Failed : (int)ExitCode.Passed;
         }
 
         private static void ShowHelp()
@@ -91,8 +92,7 @@ namespace StyleCop.Console
         private static void OnViolationEncountered(object sender, ViolationEventArgs e)
         {
             _encounteredViolations++;
-            WriteLineViolationMessage(string.Format("  Line {0}: {1} ({2})", e.LineNumber, e.Message,
-                e.Violation.Rule.CheckId));
+            WriteLineViolationMessage(string.Format("  Line {0}: {1} ({2})", e.LineNumber, e.Message, e.Violation.Rule.CheckId));
         }
 
         private static void WriteLineViolationMessage(string message)
