@@ -33,8 +33,9 @@ namespace StyleCop.Console
                 SearchOption searchOption = arguments.NotRecursive ? SearchOption.TopDirectoryOnly : SearchOption.AllDirectories;
 
                 string projectPath = arguments.ProjectPath;
+                string outputPath = arguments.OutputPath;
 
-                return ProcessFolder(settings, projectPath, searchOption);
+                return ProcessFolder(settings, projectPath, outputPath, searchOption);
             }
             catch (Exception ex)
             {
@@ -43,9 +44,9 @@ namespace StyleCop.Console
             }
         }
 
-        private static int ProcessFolder(string settings, string projectPath, SearchOption searchOption)
+        private static int ProcessFolder(string settings, string projectPath, string outputPath, SearchOption searchOption)
         {
-            var console = new StyleCopConsole(settings, false, null, null, true);
+            var console = new StyleCopConsole(settings, false, outputPath, null, true);
             var project = new CodeProject(0, projectPath, new Configuration(null));
 
             foreach (string file in Directory.EnumerateFiles(projectPath, "*.cs", searchOption))
@@ -79,6 +80,7 @@ namespace StyleCop.Console
             System.Console.WriteLine("");
             System.Console.WriteLine("Usage:");
             System.Console.WriteLine("  -project-path <path> or -p <path> ....... The path to analyze cs-files in");
+            System.Console.WriteLine("  -output-path <path> or -o <path> ....... The output path of Validation.xml");
             System.Console.WriteLine("  -settings-location <path> or -s <path> .. The path to 'Settings.StyleCop'");
             System.Console.WriteLine("  -not-recursively or -n .................. Do not process path recursively");
             System.Console.WriteLine("  -help or -? ............................. Show this screen");

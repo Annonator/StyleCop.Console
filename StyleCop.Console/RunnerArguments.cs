@@ -9,22 +9,42 @@
 
         public string ProjectPath
         {
-            get { return this["project-path"] ?? this["p"]; }
+            get
+            {
+                return this["project-path"] ?? this["p"];
+            }
         }
 
         public bool NotRecursive
         {
-            get { return (this["not-recursively"] ?? this["n"]) != null; }
+            get
+            {
+                return (this["not-recursively"] ?? this["n"]) != null;
+            }
         }
 
         public bool Help
         {
-            get { return (this["help"] ?? this["?"]) != null; }
+            get
+            {
+                return (this["help"] ?? this["?"]) != null;
+            }
         }
 
         public string SettingsLocation
         {
-            get { return this["settings-location"] ?? this["s"]; }
+            get
+            {
+                return this["settings-location"] ?? this["s"];
+            }
+        }
+
+        public string OutputPath
+        {
+            get
+            {
+                return this["output-path"] ?? this["o"];
+            }
         }
     }
 }
