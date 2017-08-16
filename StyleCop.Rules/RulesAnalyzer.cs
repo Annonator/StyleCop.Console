@@ -2,14 +2,14 @@
 
 namespace StyleCop.Rules
 {
-    [SourceAnalyzer(typeof (CsParser))]
+    [SourceAnalyzer(typeof(CsParser))]
     public class RulesAnalyzer : SourceAnalyzer
     {
         private int _numberOfClasses;
 
         public override void AnalyzeDocument(CodeDocument currentCodeDocument)
         {
-            var codeDocument = (CsDocument) currentCodeDocument;
+            var codeDocument = (CsDocument)currentCodeDocument;
 
             if (codeDocument.RootElement != null && !codeDocument.RootElement.Generated)
             {
