@@ -1,16 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StyleCop.Console", "StyleCop.Console\StyleCop.Console.csproj", "{74C243B2-D49B-4161-96FE-B36FA3011B81}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{40B9F7A8-2478-4974-BF83-4FF81B86B142}"
-	ProjectSection(SolutionItems) = preProject
-		Dependencies\StyleCop.CSharp.dll = Dependencies\StyleCop.CSharp.dll
-		Dependencies\StyleCop.CSharp.Rules.dll = Dependencies\StyleCop.CSharp.Rules.dll
-		Dependencies\StyleCop.dll = Dependencies\StyleCop.dll
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{01E664B4-82BC-4886-BE9B-D57092F52446}"
 	ProjectSection(SolutionItems) = preProject
